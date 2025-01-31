@@ -1,7 +1,6 @@
 #include <bits/stdc++.h>
 
 struct Field{
-    
     std::string name;
     uint8_t type;
     uint32_t value;   
@@ -39,8 +38,9 @@ int deserialize(std::string file_name){
 
         if(first_word == ">"){
             std::string type_name;
-            uint32_t can_id;
-            stream >> type_name >> can_id;
+            std::string can_id_str;
+            stream >> type_name >> can_id_str;
+            uint32_t can_id = std::stoul(can_id_str, nullptr, 16);
             std::unordered_map<std::string, Field> fields;
             car_types[type_name] = {type_name, can_id, fields};
             current_type = &car_types[type_name];
@@ -49,12 +49,12 @@ int deserialize(std::string file_name){
 
 
         if(first_word.substr(0, 2) != ">>" || first_word.length() < 3){
-            std::cerr << "Error: invalid syntax at line " + std::to_string(line_number) +"\n";
+            std::cerr << "Error: Invalid syntax at line " + std::to_string(line_number) +"\n";
             return 1;
         }
 
         if(current_type == nullptr){
-            std::cerr << "Error: field not in a type at line" + std::to_string(line_number) + "\n";
+            std::cerr << "Error: Field not in a type at line" + std::to_string(line_number) + "\n";
             return 1;
         }
 
