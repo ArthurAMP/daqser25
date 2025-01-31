@@ -54,7 +54,7 @@ int deserialize(std::string file_name){
         }
 
         if(current_type == nullptr){
-            std::cerr << "Error: Field not in a type at line" + std::to_string(line_number) + "\n";
+            std::cerr << "Error: Field not in a type at line " + std::to_string(line_number) + "\n";
             return 1;
         }
 
